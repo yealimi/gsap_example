@@ -50,26 +50,44 @@ document.addEventListener('DOMContentLoaded', function () {
       trigger: '.about',
       start: 'top bottom',
       scrub: 1.8,
-    }
+    },
+    benefits: {
+      trigger: '.benefits_lists',
+      start: 'top bottom',
+      scrub: 1.8,
+    },
+    work: {
+      trigger: '.work',
+      start: 'top bottom',
+      scrub: 1.8,
+    },
+    service: {
+      trigger: '.service',
+      start: 'top bottom',
+      scrub: 1.8,
+    },
+    footer: {
+      trigger: 'footer',
+      start: 'top bottom',
+      end: 'bottom bottom',
+      scrub: 1.8,
+    },
   };
 
-   //square animation
-  //  const titleSquare = document.querySelector('.title-square');
+  // square rotate animation
+  // const titleSquare = document.querySelector('.title-square');
   const titleSquares = gsap.utils.toArray('.title-square');
-
 
   titleSquares.forEach((square) => {
     tl.from(square, {
       scrollTrigger: {
-      trigger: square,
-      start: 'top bottom',
-      scrub: 1.8,
-    },
-    rotate: 760,
-   });
+        trigger: square,
+        start: 'top bottom',
+        scrub: 1.8,
+      },
+      rotate: 760,
+    });
   });
-    
-
 
   function headerAnimation(xValue) {
     // 이미지 애니메이션
@@ -114,40 +132,92 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-
   function aboutAnimation() {
-    tl.from(".about-img", {
+    tl.from('.about-img', {
       scrollTrigger: commonScrollTrigger.about,
       yPercent: 80,
     });
 
-    tl.from(".about-img img", {
+    tl.from('.about-img img', {
       scrollTrigger: commonScrollTrigger.about,
       scale: 1.6,
     });
 
-    tl.to(".about-text", {
+    tl.to('.about-text', {
       scrollTrigger: commonScrollTrigger.about,
       yPercent: 50,
     });
   }
-  
+
   aboutAnimation();
 
   function benefitsAnimation() {
-    const benefits_nums = gsap.utils.toArray('.benefits_num')
-    console.log(benefits_nums);
+    const benefits_nums = gsap.utils.toArray('.benefits_num');
 
     benefits_nums.forEach((num) => {
       const data_speed = num.getAttribute('data-speed');
-      console.log(data_speed);
+    
+      tl.from(num, {
+        scrollTrigger: commonScrollTrigger.benefits,
+        x: -data_speed,
+      });
     });
-  } 
+  }
 
   benefitsAnimation();
 
-  const wWidth = window.outerWidth;
+  function workAnimation() {
+    const work_elmts = gsap.utils.toArray('.work-item, .work-item-num');
+    console.log(work_elmts);
+    
+    work_elmts.forEach((num) => {
+      const data_speed = num.getAttribute('data-speed');
+    
+      tl.from(num, {
+        scrollTrigger: commonScrollTrigger.work,
+        y: -data_speed,
+      });
+    });
 
+    tl.from('.work-item-image img', {
+      scrollTrigger: commonScrollTrigger.work,
+      scale: 1.6,
+    })
+  }
+  
+  workAnimation();
+
+  function serviceAnimation() {
+    const arrow_elmts = gsap.utils.toArray('.service-arrow');
+
+    arrow_elmts.forEach((num) => {
+      const data_speed = num.getAttribute('data-speed');
+    
+      tl.from(num, {
+        scrollTrigger: commonScrollTrigger.service,
+        x: -data_speed,
+      });
+    });
+  }
+
+  serviceAnimation();
+
+  function footerAnimation() {
+    const letter_elmts = gsap.utils.toArray('.footer-wrapper span');
+
+    letter_elmts.forEach((num) => {
+      const data_speed = num.getAttribute('data-speed');
+    
+      tl.from(num, {
+        scrollTrigger: commonScrollTrigger.footer,
+        y: -data_speed,
+      });
+    });
+  }
+
+  footerAnimation();
+
+  const wWidth = window.outerWidth;
 
   if (wWidth > 1300) {
     headerAnimation(-70);
@@ -158,4 +228,17 @@ document.addEventListener('DOMContentLoaded', function () {
   //================================
 });
 
-const arr = ['홍콩반점', '오복성', '동보성'] //배열
+const arr = ['홍콩반점', '오복성', '동보성']; // 배열
+
+console.log(arr[0]);
+
+const obj = {
+  홍콩반점: {
+    짜장면: 5000,
+    짬뽕: 6000,
+  },
+  오복성: ['짜장면', '짬뽕'],
+  동보성: ['짜장면', '짬뽕'],
+};
+
+console.log(obj.홍콩반점.짜장면);
