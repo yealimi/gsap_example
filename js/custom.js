@@ -187,20 +187,24 @@ document.addEventListener('DOMContentLoaded', function () {
   
   workAnimation();
 
-  function serviceAnimation() {
+
+  const pcDataSpeed = ['500','400', '800', '600'];
+  const mobileDataSpeed = ['150', '180', '250', '180'];
+
+  function serviceAnimation(speed) {
     const arrow_elmts = gsap.utils.toArray('.service-arrow');
 
-    arrow_elmts.forEach((num) => {
+    arrow_elmts.forEach((num, i) => {
+      console.log(speed[i]);
       const data_speed = num.getAttribute('data-speed');
     
       tl.from(num, {
         scrollTrigger: commonScrollTrigger.service,
-        x: -data_speed,
+        x: -speed[i],
       });
     });
   }
 
-  serviceAnimation();
 
   function footerAnimation() {
     const letter_elmts = gsap.utils.toArray('.footer-wrapper span');
@@ -221,8 +225,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (wWidth > 1300) {
     headerAnimation(-70);
+    serviceAnimation(PcDataSpeed);
   } else {
     headerAnimation(0);
+    serviceAnimation(mobileDataSpeed);
   }
 
   //================================
